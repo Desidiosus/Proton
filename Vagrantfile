@@ -4,7 +4,7 @@
 # Vagrant file for setting up a build environment for Proton.
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "generic/debian9"
+  config.vm.box = "generic/ubuntu1804"
 
   config.vm.provider "virtualbox" do |v|
     v.cpus = `nproc`.to_i
@@ -25,19 +25,22 @@ Vagrant.configure(2) do |config|
 
     #add winehq repo
     curl -fsSL https://dl.winehq.org/wine-builds/winehq.key | apt-key add -
-    echo 'deb http://dl.winehq.org/wine-builds/debian stretch main' > /etc/apt/sources.list.d/winehq.list
+    echo 'deb http://dl.winehq.org/wine-builds/ubuntu bionic main' > /etc/apt/sources.list.d/winehq.list
 
     #add docker repo
-    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable"
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 
     #add backports
-    echo 'deb http://ftp.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list
+    echo 'deb http://archive.ubuntu.com/ubuntu bionic-backports main' > /etc/apt/sources.list.d/backports.list
+
+    # backport of mingw-w64-6.0
+    add-apt-repository ppa:mati865/mingw-w64 
 
     #install host build-time dependencies
     apt-get update
     apt-get install -y gpgv2 gnupg2 g++ g++-6-multilib mingw-w64 git docker-ce fontforge-nox python-debian
-    apt-get -y -t stretch-backports install meson
+    apt-get -y -t bionic-backports install meson
 
     #winehq-devel is installed to pull in dependencies to run Wine
     apt-get install -y --install-recommends winehq-devel
