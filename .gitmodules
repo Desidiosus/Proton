@@ -1,9 +1,6 @@
 [submodule "wine"]
     path = wine
     url = https://github.com/ValveSoftware/wine/
-[submodule "dxvk"]
-	path = dxvk
-	url = https://github.com/ValveSoftware/dxvk/
 [submodule "ffmpeg"]
 	path = ffmpeg
 	url = https://git.ffmpeg.org/ffmpeg.git
@@ -19,3 +16,7 @@
 [submodule "FAudio"]
 	path = FAudio
 	url = https://github.com/FNA-XNA/FAudio/
+[submodule "dxvk"]
+	path = dxvk
+	url = https://github.com/Desidiosus/dxvk.git
+	branch = constant-bounds-option
